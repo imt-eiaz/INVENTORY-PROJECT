@@ -20,16 +20,17 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        "http://127.0.0.1:3000/api/auth/login",
         {
           email,
           password,
         }
       );
-      if (response.data.status) {
+      console.log(response.data);
+      if (response.data.success) {
         await login(response.data.user, response.data.token);
         if (response.data.user.role === "admin") {
-          navigate("/admin/dashbaord");
+          navigate("/admin/dashboard");
         } else {
           navigate("/customer/dashboard");
         }
@@ -48,7 +49,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center h-screen justify-center bg-gradient-to-b from-green-600 from-50% to-gray-100 to-50% space-y-6">
-      <h2 className="text-3xl text-white">Inventory Management Systems</h2>
+      <h2 className="text-3xl text-white">Inventory Management System</h2>
       <div className="border shadow-lg p-6 w-80 bg-white">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         {error && (
